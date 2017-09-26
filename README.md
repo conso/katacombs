@@ -49,7 +49,7 @@ A SMALL STREAM OF CRAFTED BEER FLOWS OUT OF THE BUILDING AND DOWN A GULLY.
     
   
   * #### *Looking*
-    **LOOK** allows to look in every direction to have an idea of the surrounding environment or it is possible to look at an item. 
+    **LOOK** allows to look in every direction to have an idea of the surrounding environment or an item. 
     
 ```
 YOU ARE STANDING AT THE END OF BRICK LANE BEFORE A SMALL BRICK BUILDING CALLED THE OLD TRUMAN BREWERY. 
