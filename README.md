@@ -6,9 +6,9 @@ The game is based on a console application describing a fictional underground wo
 The world is a collection of environments connected to eachother via specific connection points (doors, passages, gates, stairs, etc). Each environment is divided in locations and the player can move among them using cardinal points for directions. 
 It is possible to just look in every directions, but not all the directions are always available for being looked at, nor to move to. 
 
-When looking somewhere without anything interesting the system should reply ***"Nothing interesting to look at there!"***.
+When looking somewhere without anything interesting the system should reply **"Nothing interesting to look at there!"**.
 
-When a general action is not available the system will reply ***"I can't do that here!"***.
+When a general action is not available the system will reply *"I can't do that here!"*.
 
 When the system can't understand the command it should prompt ***"I don't understand that. English please!"***.
 
