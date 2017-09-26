@@ -3,7 +3,7 @@
 Inspired by [Colossal Cave Adventure](https://en.wikipedia.org/wiki/Colossal_Cave_Adventure) this is a kata idea for building a text adventure game which can be expanded *incrementally* and *indefinetly* limited only by imagination.
 
 The game is based on a console application describing a fictional underground world to be explored by the player via a set of commands.
-The world is a collection of environments connected to eachother via specific connection points (doors, passages, gates, stairs, etc). Each environment is divided in locations and the player can move among them using cardinal points for directions. 
+The world is a collection of environments connected to each other via specific connection points (doors, passages, gates, stairs, etc). Each environment is divided in locations and the player can move among them using cardinal points for directions. 
 It is possible to just look in every directions, but not all the directions are always available for being looked at, nor to move to. 
 
 The world will have treasures hidden in several locations, which will be collected when players enter the location or use the correct item in the correct location. 
@@ -49,7 +49,7 @@ A SMALL STREAM OF CRAFTED BEER FLOWS OUT OF THE BUILDING AND DOWN A GULLY.
     
   
   * #### *Looking*
-    **LOOK** allows to look in every direction to have an idea of the surrounding environment. 
+    **LOOK** allows to look in every direction to have an idea of the surrounding environment or it is possible to look at an item. 
     
 ```
 YOU ARE STANDING AT THE END OF BRICK LANE BEFORE A SMALL BRICK BUILDING CALLED THE OLD TRUMAN BREWERY. 
@@ -98,6 +98,20 @@ THE RED DOOR HAS BEEN UNLOCKED!
 > OPEN DOOR
 YOU ARE INSIDE THE RED CHAMBER 
 ```
+#### Game utilities
+
+ * #### *Help*
+    **?** will list all the available commands and their usage.
+    
+```
+> ?
+GO [direction], LOOK [direction/item], OPEN [item], PICK [item], DROP [item], INVENTORY, USE [item]
+``` 
+
+ * #### *Quit*
+    **Quit** terminates the game 
+    
+
 
 
 
