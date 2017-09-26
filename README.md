@@ -18,7 +18,7 @@ Most obvious are the commands for moving around the world, but there are several
     
    * #### *Looking*
         **LOOK** allows to look in every direction to have an idea of the surrounding environment. 
-        ```javascript
+        ```
         YOU ARE STANDING AT THE END OF A ROAD BEFORE A SMALL BRICK BUILDING. 
         AROUND YOU IS A FOREST.  A SMALL STREAM FLOWS OUT OF THE BUILDING AND DOWN A GULLY.
         > LOOK N
