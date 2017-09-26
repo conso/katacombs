@@ -8,9 +8,9 @@ It is possible to just look in every directions, but not all the directions are 
 
 When looking somewhere without anything interesting the system should reply **"Nothing interesting to look at there!"**.
 
-When a general action is not available the system will reply *"I can't do that here!"*.
+When a general action is not available the system will reply **"I can't do that here!"**.
 
-When the system can't understand the command it should prompt ***"I don't understand that. English please!"***.
+When the system can't understand the command it should prompt **"I don't understand that. English please!"**.
 
 #### Startup
 
