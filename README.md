@@ -6,6 +6,9 @@ The game is based on a console application describing a fictional underground wo
 The world is a collection of environments connected to eachother via specific connection points (doors, passages, gates, stairs, etc). Each environment is divided in locations and the player can move among them using cardinal points for directions. 
 It is possible to just look in every directions, but not all the directions are always available for being looked at, nor to move to. 
 
+The world will have treasures hidden in several locations, which will be collected when players enter the location or use the correct item in the correct location. 
+The game terminates when the player finds the exit of the katacomb and the score will be the sum of the value of the treasures collected.
+
 When looking somewhere without anything interesting the system should reply **"Nothing interesting to look at there!"**.
 
 When a general action is not available the system will reply **"I can't do that here!"**.
