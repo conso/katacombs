@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Codurance-Katacombs/.vs/Codurance-Katacombs/v15
+/Codurance-Katacombs/bin/Debug
+/Codurance-Katacombs/obj/Debug
