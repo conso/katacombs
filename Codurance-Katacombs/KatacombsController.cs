@@ -2,31 +2,30 @@
 {
     public class KatacombsController
     {
-        private readonly IKatacombsWorld _katacombsWorld;
+        private readonly IKatacombsEngine _katacombsEngine;
         private readonly IWrapConsole _console;
 
-        public KatacombsController(IKatacombsWorld katacombsWorld, IWrapConsole console)
+        public KatacombsController(IKatacombsEngine katacombsEngine, IWrapConsole console)
         {
-            _katacombsWorld = katacombsWorld;
-            _katacombsWorld.ShowMessage += ProxyWorldMessageToConsole;
+            _katacombsEngine = katacombsEngine;
+            _katacombsEngine.ShowMessage += DisplayMessageToConsole;
             _console = console;
             _console.ReadLine += ExecuteCommand;
-            
         }
 
-        private void ProxyWorldMessageToConsole(string[] textMessage)
+        private void DisplayMessageToConsole(string[] textMessage)
         {
             _console.Write(textMessage);
         }
 
         private void ExecuteCommand(string commandText)
         {
-            _katacombsWorld.Execute(commandText);
+            _katacombsEngine.Execute(commandText);
         }
 
         public void StartGame()
         {
-            _katacombsWorld.Startup();
+            _katacombsEngine.Startup();
         }
     }
 }

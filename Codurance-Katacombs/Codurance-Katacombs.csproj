@@ -46,14 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ILocationCommand.cs" />
+    <Compile Include="IKatacombsEngine.cs" />
     <Compile Include="IKatacombsWorld.cs" />
     <Compile Include="KatacombsController.cs" />
     <Compile Include="IWrapConsole.cs" />
-    <Compile Include="KatacombsWorld.cs" />
+    <Compile Include="KatacombsEngine.cs" />
     <Compile Include="Location.cs" />
+    <Compile Include="MoveTo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\KatacombsGameControllerShould.cs" />
-    <Compile Include="Tests\KatacombsWorldShould.cs" />
+    <Compile Include="Tests\KatacombsEngineShould.cs" />
+    <Compile Include="Builders\LocationBuilder.cs" />
+    <Compile Include="Tests\LocationShould.cs" />
+    <Compile Include="Tests\MoveToShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

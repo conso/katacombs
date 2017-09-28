@@ -8,31 +8,31 @@ namespace Codurance_Katacombs.Tests
     {
         private IWrapConsole _console;
         private KatacombsController _katacombsController;
-        private IKatacombsWorld _world;
+        private IKatacombsEngine _engine;
 
         [SetUp]
         public void TestSetup()
         {
-            _world = A.Fake<IKatacombsWorld>();
+            _engine = A.Fake<IKatacombsEngine>();
             _console = A.Fake<IWrapConsole>();
-            _katacombsController = new KatacombsController(_world, _console);
+            _katacombsController = new KatacombsController(_engine, _console);
             _katacombsController.StartGame();
         }
 
         [Test]
-        public void Proxy_commands_to_the_world()
+        public void Proxy_user_commands_to_the_game_engine()
         {
             string commandText = "GO N";
             _console.ReadLine += Raise.FreeForm.With(commandText);
 
-            A.CallTo(() => _world.Execute(commandText)).MustHaveHappened(Repeated.Exactly.Once);
+            A.CallTo(() => _engine.Execute(commandText)).MustHaveHappened(Repeated.Exactly.Once);
         }
 
         [Test]
-        public void Write_text_lines_to_the_console_when_the_world_raises_show_message_event()
+        public void Display_text_lines_to_the_console_when_engine_raises_show_message_event()
         {
             var messageText = new []{ "CIAO MAMMA!", "BONAAAA"};
-            _world.ShowMessage += Raise.FreeForm.With(new []{messageText});
+            _engine.ShowMessage += Raise.FreeForm.With(new []{messageText});
 
             A.CallTo(() => _console.Write(messageText)).MustHaveHappened(Repeated.Exactly.Once);
         }
@@ -40,8 +40,7 @@ namespace Codurance_Katacombs.Tests
         [Test]
         public void Startup_the_world()
         {
-            A.CallTo(() => _world.Startup()).MustHaveHappened(Repeated.Exactly.Once);
+            A.CallTo(() => _engine.Startup()).MustHaveHappened(Repeated.Exactly.Once);
         }
-
     }
 }
