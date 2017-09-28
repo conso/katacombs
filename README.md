@@ -62,7 +62,7 @@ I CAN SEE A BRICK BUILDING WITH A SIGN SAYING "TRUMAN BREWERY" AND A WOODEN WHIT
 ```       
    
    #### World correctness
-   The only requirement for the world to be correct is that the locations must have mutual references to each other. That means that if from location A going South I end up in location B, then from location B going North I must end up in location A. Same principle should be valid for all cardinal points, but also when going up and down.
+   There are only two requirements for the world. The first is that there should not be two different locations with the same title. The second is that the locations must have mutual reversed references to each other. That means that if from location A going South I end up in location B, then from location B going North I must end up in location A. Same principle should be valid for all cardinal points, but also when going up and down.
    
    
 #### Interact with the environment
