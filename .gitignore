@@ -5,3 +5,5 @@
 /Codurance-Katacombs/.vs/Codurance-Katacombs/v15
 /Codurance-Katacombs/bin/Debug
 /Codurance-Katacombs/obj/Debug
+/Codurance-Katacombs/packages/NUnit.3.8.1
+/Codurance-Katacombs/packages/FakeItEasy.4.0.0

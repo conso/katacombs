@@ -46,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="KatacombsGameController.cs" />
+    <Compile Include="IKatacombStrategy.cs" />
+    <Compile Include="KatacombsController.cs" />
     <Compile Include="IWrapConsole.cs" />
+    <Compile Include="Location.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\KatacombsGameControllerShould.cs" />
   </ItemGroup>

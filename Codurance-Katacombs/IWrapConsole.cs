@@ -1,7 +1,10 @@
+using System;
+
 namespace Codurance_Katacombs
 {
     public interface IWrapConsole
     {
-        void Display(params string[] textLines);
+        void Write(params string[] textLines);
+        event Action<string> ReadLine;
     }
 }
