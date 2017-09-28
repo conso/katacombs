@@ -8,39 +8,40 @@ namespace Codurance_Katacombs.Tests
     {
         private IWrapConsole _console;
         private KatacombsController _katacombsController;
+        private IKatacombsWorld _world;
 
         [SetUp]
         public void TestSetup()
         {
+            _world = A.Fake<IKatacombsWorld>();
             _console = A.Fake<IWrapConsole>();
-            _katacombsController = new KatacombsController(_console);
+            _katacombsController = new KatacombsController(_world, _console);
             _katacombsController.StartGame();
         }
 
         [Test]
-        public void Display_main_description_for_initial_location()
+        public void Proxy_commands_to_the_world()
         {
-            A.CallTo(() => _console.Write("Initial environment title", "Initial environment message"))
-                .MustHaveHappened(Repeated.Exactly.Once);
+            string commandText = "GO N";
+            _console.ReadLine += Raise.FreeForm.With(commandText);
+
+            A.CallTo(() => _world.Execute(commandText)).MustHaveHappened(Repeated.Exactly.Once);
         }
 
         [Test]
-        public void Display_main_description_when_moving_to_next_location()
+        public void Write_text_lines_to_the_console_when_the_world_raises_show_message_event()
         {
-            _console.ReadLine += Raise.FreeForm.With("GO N");
+            var messageText = new []{ "CIAO MAMMA!", "BONAAAA"};
+            _world.ShowMessage += Raise.FreeForm.With(new []{messageText});
 
-            A.CallTo(() => _console.Write("Next location title", "Next location message"))
-                .MustHaveHappened(Repeated.Exactly.Once);
+            A.CallTo(() => _console.Write(messageText)).MustHaveHappened(Repeated.Exactly.Once);
         }
 
         [Test]
-        public void Display_initial_description_when_moving_to_next_location_and_back()
+        public void Startup_the_world()
         {
-            _console.ReadLine += Raise.FreeForm.With("GO N");
-            _console.ReadLine += Raise.FreeForm.With("GO S");
-
-            A.CallTo(() => _console.Write("Initial environment title", "Initial environment message"))
-                .MustHaveHappened(Repeated.Exactly.Twice);
+            A.CallTo(() => _world.Startup()).MustHaveHappened(Repeated.Exactly.Once);
         }
+
     }
 }

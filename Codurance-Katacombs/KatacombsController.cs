@@ -2,28 +2,32 @@
 {
     public class KatacombsController
     {
+        private readonly IKatacombsWorld _katacombsWorld;
         private readonly IWrapConsole _console;
-        private Location _currentLocation;
 
-        public KatacombsController(IWrapConsole console)
+        public KatacombsController(IKatacombsWorld katacombsWorld, IWrapConsole console)
         {
+            _katacombsWorld = katacombsWorld;
+            _katacombsWorld.ShowMessage += ProxyWorldMessageToConsole;
             _console = console;
             _console.ReadLine += ExecuteCommand;
-            _currentLocation = new Location("Initial environment title", "Initial environment message");
+            
+        }
+
+        private void ProxyWorldMessageToConsole(string[] textMessage)
+        {
+            _console.Write(textMessage);
         }
 
         private void ExecuteCommand(string commandText)
         {
-            _currentLocation = commandText == "GO N" ? 
-                new Location("Next location title", "Next location message") : 
-                new Location("Initial environment title", "Initial environment message");
-
-            _console.Write(_currentLocation.Display());
+            _katacombsWorld.Execute(commandText);
         }
 
         public void StartGame()
         {
-            _console.Write(_currentLocation.Display());
+            _katacombsWorld.Startup();
         }
     }
 }
+        
