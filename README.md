@@ -3,7 +3,7 @@
 Inspired by [Colossal Cave Adventure](https://en.wikipedia.org/wiki/Colossal_Cave_Adventure) this is a kata idea for building a text adventure game which can be expanded *incrementally* and *indefinetly* limited only by imagination.
 
 The game is based on a console application describing a fictional underground world to be explored by the player via a set of commands.
-The world is a collection of environments connected to each other via specific connection points (doors, passages, gates, stairs, etc). Each environment is divided in locations and the player can move among them using cardinal points for directions. 
+The world is a collection of locations linked to each other geographically (on North, South, East or West) or via specific connection points (doors, passages, gates, stairs, etc). The player can move among them using cardinal points for directions or exploiting the connection points with actions or items. 
 It is possible to just look in every directions, but not all the directions are always available for being looked at, nor to move to. 
 
 The world will have treasures hidden in several locations, which will be collected when players enter the location or use the correct item in the correct location. 
@@ -17,11 +17,12 @@ When the system can't understand the command it should prompt **"I don't underst
 
 #### Startup
 
-The game at startup describe the **main description** of the initial location. When the player moves to another location, the system will always prompt the main description for that location.
+The game at startup shows the **title** and **main description** of the initial location. When the player moves to another location, the system will always prompt **title** and **main description** for the new location.
 
 ```
+LOST IN SHOREDITCH.
 YOU ARE STANDING AT THE END OF BRICK LANE BEFORE A SMALL BRICK BUILDING CALLED THE OLD TRUMAN BREWERY. 
-AROUND YOU IS A FOREST OF INDIAN RESTAURNTS. 
+AROUND YOU IS A FOREST OF INDIAN RESTAURANTS. 
 A SMALL STREAM OF CRAFTED BEER FLOWS OUT OF THE BUILDING AND DOWN A GULLY.
 >
 ```
@@ -49,15 +50,20 @@ A SMALL STREAM OF CRAFTED BEER FLOWS OUT OF THE BUILDING AND DOWN A GULLY.
     
   
   * #### *Looking*
-    **LOOK** allows to look in every direction to have an idea of the surrounding environment or an item. 
+    **LOOK** allows to look in every direction to have an idea of the surroundings or a better description of an item. 
     
 ```
+LOST IN SHOREDITCH.
 YOU ARE STANDING AT THE END OF BRICK LANE BEFORE A SMALL BRICK BUILDING CALLED THE OLD TRUMAN BREWERY. 
 AROUND YOU IS A FOREST OF INDIAN RESTAURNTS. 
 A SMALL STREAM OF CRAFTED BEER FLOWS OUT OF THE BUILDING AND DOWN A GULLY.
 > LOOK N
 I CAN SEE A BRICK BUILDING WITH A SIGN SAYING "TRUMAN BREWERY" AND A WOODEN WHITE DOOR
 ```       
+   
+   #### World correctness
+   The only requirement for the world to be correct is that the locations must have mutual references to each other. That means that if from location A going South I end up in location B, then from location B going North I must end up in location A. Same principle should be valid for all cardinal points, but also when going up and down.
+   
    
 #### Interact with the environment
 There are several commands for interacting with the environment. These commands are always composed by two parts: the action and the object. Usually the object is specified in the main description or in the result of the LOOK command.
@@ -74,7 +80,7 @@ YOU ARE INSIDE THE MAIN ROOM OF THE TRUMAN BREWERY. THERE IS A STRONG SMELL OF H
 * #### *Picking and dropping items*
     **PICK** will collect an item from the environment and will put it in the bag. **DROP** allows to leave an item in the environment. Every item can be picked and dropped anywhere and the game has to list the items in the environment just after the main description.
 ```
-INSIDE THE BUILDING
+INSIDE THE BUILDING.
 YOU ARE INSIDE THE BUILDING, A WELL HOUSE FOR LARGE SPRINGS.
 THERE ARE SOME KEYS ON THE FLOOR.
 > PICK KEYS
@@ -91,7 +97,7 @@ THE BAG CONTAINS: SOME KEYS, A SWISS KNIFE, A CANDLE AND A COMPASS.
 ```
 
 * #### *Using items*
-    **USE** will perform an action with the item, if the environment is setup for it. It can give an extra sentence in the main description, unlock another passage or location
+    **USE** will perform an action with the item, if the environment is setup for it. It can give an extra sentence in the main description, unlock a passage toward a hidden location, release a new item in the location.
 ```
 > USE KEYS
 THE RED DOOR HAS BEEN UNLOCKED!
