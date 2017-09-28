@@ -97,7 +97,7 @@ THE BAG CONTAINS: SOME KEYS, A SWISS KNIFE, A CANDLE AND A COMPASS.
 ```
 
 * #### *Using items*
-    **USE** will perform an action with the item, if the environment is setup for it. It can give an extra sentence in the main description, unlock a passage toward a hidden location, release a new item in the location.
+    **USE** will perform an action with the item, if the environment is setup for it and if we have the item in the bag. The action can result in an extra sentence in the main description, unlocking a passage toward a hidden location, releasing a new item in the location.
 ```
 > USE KEYS
 THE RED DOOR HAS BEEN UNLOCKED!
