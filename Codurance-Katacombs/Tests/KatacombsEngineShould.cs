@@ -1,4 +1,5 @@
-﻿using FakeItEasy;
+﻿using Codurance_Katacombs.Commands;
+using FakeItEasy;
 using NUnit.Framework;
 
 namespace Codurance_Katacombs.Tests
@@ -6,62 +7,43 @@ namespace Codurance_Katacombs.Tests
     [TestFixture]
     public class KatacombsEngineShould
     {
+        private string title= "title";
+        private string description = "description";
         private KatacombsEngine _katacombsEngine;
         private IKatacombsWorld _katacombsWorld;
+        private ICommandFactory _commandFactory;
         private string[] _lastMessage;
-        private Location _initialLocation;
-        private Location _nextLocation;
-        
 
         [SetUp]
         public void TestSetup()
         {
-            _initialLocation = new LocationBuilder("Initial environment title", "Initial environment message")
-                .WithNorth("Next location title")
-                .Build();
-            _nextLocation = new LocationBuilder("Next location title", "Next location message")
-                .WithSouth("Initial environment title")
-                .Build();
-
             _lastMessage = null;
+            _commandFactory = A.Fake<ICommandFactory>();
             _katacombsWorld = A.Fake<IKatacombsWorld>();
-            A.CallTo(() => _katacombsWorld.GetStartingLocation()).Returns(_initialLocation);
+            var initialLocation = new Location(title, description);
+            A.CallTo(() => _katacombsWorld.CurrentLocation()).Returns(initialLocation);
+            _katacombsEngine = new KatacombsEngine(_katacombsWorld, _commandFactory);
+            _katacombsEngine.ShowMessage += (message) => _lastMessage = message;
 
-            _katacombsEngine = new KatacombsEngine(_katacombsWorld);
-            _katacombsEngine.ShowMessage += RecordLastMessage;
             _katacombsEngine.Startup();
         }
+
 
         [Test]
         public void Show_main_description_for_initial_location_when_started()
         {
-            Assert.That(_lastMessage, Is.EquivalentTo(_initialLocation.Display()));
+            Assert.That(_lastMessage, Is.EquivalentTo(new []{title, description}));
         }
 
         [Test]
-        public void Display_main_description_when_moving_to_next_location()
+        public void Execute_commands()
         {
-            A.CallTo(() => _katacombsWorld.GetLocation(A<string>._)).Returns(_nextLocation);
+            var fakeCommand = A.Fake<IMoveToCommand>();
+            A.CallTo(() => _commandFactory.GetCommand(A<string>._, A<IKatacombsWorld>._)).Returns(fakeCommand);
 
             _katacombsEngine.Execute("GO N");
 
-            Assert.That(_lastMessage, Is.EquivalentTo(_nextLocation.Display()));
-        }
-
-        [Test]
-        public void Display_initial_description_when_moving_to_next_location_and_back()
-        {
-            A.CallTo(() => _katacombsWorld.GetLocation(A<string>._)).ReturnsNextFromSequence(_nextLocation, _initialLocation);
-
-            _katacombsEngine.Execute("GO N");
-            _katacombsEngine.Execute("GO S");
-
-            Assert.That(_lastMessage, Is.EquivalentTo(_initialLocation.Display()));
-        }
-
-        private void RecordLastMessage(string[] messageText)
-        {
-            _lastMessage = messageText;
+            A.CallTo(() => fakeCommand.Execute()).MustHaveHappened(Repeated.Exactly.Once);
         }
     }
 }

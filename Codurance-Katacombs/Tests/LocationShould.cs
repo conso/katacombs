@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Codurance_Katacombs.Commands;
+using NUnit.Framework;
 
 namespace Codurance_Katacombs.Tests
 {
@@ -6,7 +7,6 @@ namespace Codurance_Katacombs.Tests
     public class LocationShould
     {
         private Location _location;
-        private string _lastDestination;
         private string _northernLocationTitle;
         private string _locationTitle;
         private string _locationDescription;
@@ -18,7 +18,6 @@ namespace Codurance_Katacombs.Tests
             _locationDescription = "location description";
             _northernLocationTitle = "northern location";
             _location = new LocationBuilder(_locationTitle, _locationDescription).Build();
-            _location.ChangeTo += ChangeLocationEvent;
         }
 
         [Test]
@@ -33,21 +32,13 @@ namespace Codurance_Katacombs.Tests
         }
 
         [Test]
-        public void Execute_command_for_going_North()
+        public void Get_commands_when_present()
         {
             _location.AddMovingCommand("GO N", _northernLocationTitle);
 
-            _location.Execute("GO N");
+            var command = _location.GetCommand("GO N");
 
-            Assert.That(_lastDestination, Is.EqualTo(_northernLocationTitle));
-        }
-
-        private void ChangeLocationEvent(string destinationTitle)
-        {
-            _lastDestination = destinationTitle;
+            Assert.That(command, Is.InstanceOf<ILocationCommand>());
         }
     }
-
-
-    
 }

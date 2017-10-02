@@ -1,4 +1,5 @@
-﻿using System;       
+﻿using System;
+using Codurance_Katacombs.Commands;
 
 namespace Codurance_Katacombs
 {
@@ -7,37 +8,31 @@ namespace Codurance_Katacombs
         public event Action<string[]> ShowMessage;
 
         private readonly IKatacombsWorld _world;
-        private Location _currentLocation;
+        private readonly ICommandFactory _commandFactory;
 
-        public KatacombsEngine(IKatacombsWorld world)
+        public KatacombsEngine(IKatacombsWorld world, ICommandFactory commandFactory)
         {
+            _commandFactory = commandFactory;
             _world = world;
-            _currentLocation = _world.GetStartingLocation();
-            _currentLocation.ChangeTo += ChangeCurrentLocationTo;
+            _world.DisplayMessage += DisplayMessage;
         }
 
         public void Startup()
         {
-            DisplayCurrentLocationMessage();
+            DisplayMessage(_world.CurrentLocation().Display());
         }
 
         public void Execute(string commandText)
         {
-            _currentLocation.Execute(commandText);
+            ILocationCommand command = _commandFactory.GetCommand(commandText, _world);
+            command.Execute();
         }
 
-        private void DisplayCurrentLocationMessage()
+        private void DisplayMessage(string[] messageText)
         {
-            ShowMessage?.Invoke(_currentLocation.Display());
+            ShowMessage?.Invoke(messageText);
         }
 
-        private void ChangeCurrentLocationTo(string locationTitle)
-        {
-            _currentLocation.ChangeTo -= ChangeCurrentLocationTo;
-            _currentLocation = _world.GetLocation(locationTitle);
-            _currentLocation.ChangeTo += ChangeCurrentLocationTo;
-
-            DisplayCurrentLocationMessage();
-        }
+        
     }
 }

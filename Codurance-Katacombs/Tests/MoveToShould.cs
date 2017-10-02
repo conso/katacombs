@@ -1,27 +1,23 @@
-﻿using NUnit.Framework;
+﻿using Codurance_Katacombs.Commands;
+using FakeItEasy;
+using NUnit.Framework;
 
 namespace Codurance_Katacombs.Tests
 {
     [TestFixture]
     public class MoveToShould
     {
-        private string _lastDestination;
-
         [Test]
-        public void Raise_Change_To_Event()
+        public void Change_current_position_to_next_location()
         {
-            var location = new Location("blah", "blah");
-            location.ChangeTo += ChangeToEventRaised;
-            var moveToCommand = new MoveTo("there", location);
+            string nextLocation = "next location";
+            var moveToCommand = new MoveTo(nextLocation);
+            var fakeWorld = A.Fake<IKatacombsWorld>();
+            moveToCommand.SetContext(fakeWorld);
 
             moveToCommand.Execute();
 
-            Assert.That(_lastDestination, Is.EqualTo("there"));
-        }
-
-        private void ChangeToEventRaised(string destination)
-        {
-            _lastDestination = destination;
+            A.CallTo(() => fakeWorld.SetCurrentLocationTo(nextLocation)).MustHaveHappened(Repeated.Exactly.Once);
         }
     }
 }

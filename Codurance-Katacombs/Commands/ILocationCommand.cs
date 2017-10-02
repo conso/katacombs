@@ -1,4 +1,4 @@
-namespace Codurance_Katacombs
+namespace Codurance_Katacombs.Commands
 {
     public interface ILocationCommand
     {

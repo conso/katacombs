@@ -1,8 +1,13 @@
-﻿namespace Codurance_Katacombs
+﻿using System;
+
+namespace Codurance_Katacombs
 {
     public interface IKatacombsWorld
     {
-        Location GetStartingLocation();
-        Location GetLocation(string locationTitle);
+        event Action<string[]> DisplayMessage;
+
+        void SetCurrentLocationTo(string locationTitle);
+
+        Location CurrentLocation();
     }
 }
