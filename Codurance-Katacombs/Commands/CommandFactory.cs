@@ -1,10 +1,14 @@
-﻿namespace Codurance_Katacombs.Commands
+﻿using Codurance_Katacombs.Core;
+
+namespace Codurance_Katacombs.Commands
 {
     public class CommandFactory : ICommandFactory
     {
         public ILocationCommand GetCommand(string commandText, IKatacombsWorld world)
         {
-            throw new System.NotImplementedException();
+            var command = world.CurrentLocation().GetCommand(commandText);
+            command.SetContext(world);
+            return command;
         }
     }
 }

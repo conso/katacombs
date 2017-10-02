@@ -1,6 +1,6 @@
 using System;
 
-namespace Codurance_Katacombs
+namespace Codurance_Katacombs.Infrastructure
 {
     public interface IWrapConsole
     {

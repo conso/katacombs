@@ -1,7 +1,9 @@
-﻿using Codurance_Katacombs.Commands;
+﻿using Codurance_Katacombs.Builders;
+using Codurance_Katacombs.Commands;
+using Codurance_Katacombs.Core;
 using NUnit.Framework;
 
-namespace Codurance_Katacombs.Tests
+namespace Codurance_Katacombs.Tests.Core
 {
     [TestFixture]
     public class LocationShould
@@ -34,7 +36,7 @@ namespace Codurance_Katacombs.Tests
         [Test]
         public void Get_commands_when_present()
         {
-            _location.AddMovingCommand("GO N", _northernLocationTitle);
+            _location.AddMoveToCommand("GO N", _northernLocationTitle);
 
             var command = _location.GetCommand("GO N");
 

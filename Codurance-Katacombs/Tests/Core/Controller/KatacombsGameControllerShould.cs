@@ -1,7 +1,10 @@
-﻿using FakeItEasy;
+﻿using Codurance_Katacombs.Core;
+using Codurance_Katacombs.Core.Controller;
+using Codurance_Katacombs.Infrastructure;
+using FakeItEasy;
 using NUnit.Framework;
 
-namespace Codurance_Katacombs.Tests
+namespace Codurance_Katacombs.Tests.Core.Controller
 {
     [TestFixture]
     public class KatacombsGameControllerShould
@@ -32,7 +35,7 @@ namespace Codurance_Katacombs.Tests
         public void Display_text_lines_to_the_console_when_engine_raises_show_message_event()
         {
             var messageText = new []{ "CIAO MAMMA!", "BONAAAA"};
-            _engine.ShowMessage += Raise.FreeForm.With(new []{messageText});
+            _engine.DisplayMessage += Raise.FreeForm.With(new []{messageText});
 
             A.CallTo(() => _console.Write(messageText)).MustHaveHappened(Repeated.Exactly.Once);
         }

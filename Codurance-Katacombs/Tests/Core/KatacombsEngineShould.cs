@@ -1,8 +1,9 @@
 ﻿using Codurance_Katacombs.Commands;
+using Codurance_Katacombs.Core;
 using FakeItEasy;
 using NUnit.Framework;
 
-namespace Codurance_Katacombs.Tests
+namespace Codurance_Katacombs.Tests.Core
 {
     [TestFixture]
     public class KatacombsEngineShould
@@ -23,7 +24,7 @@ namespace Codurance_Katacombs.Tests
             var initialLocation = new Location(title, description);
             A.CallTo(() => _katacombsWorld.CurrentLocation()).Returns(initialLocation);
             _katacombsEngine = new KatacombsEngine(_katacombsWorld, _commandFactory);
-            _katacombsEngine.ShowMessage += (message) => _lastMessage = message;
+            _katacombsEngine.DisplayMessage += (message) => _lastMessage = message;
 
             _katacombsEngine.Startup();
         }
@@ -38,7 +39,7 @@ namespace Codurance_Katacombs.Tests
         [Test]
         public void Execute_commands()
         {
-            var fakeCommand = A.Fake<IMoveToCommand>();
+            var fakeCommand = A.Fake<ILocationCommand>();
             A.CallTo(() => _commandFactory.GetCommand(A<string>._, A<IKatacombsWorld>._)).Returns(fakeCommand);
 
             _katacombsEngine.Execute("GO N");

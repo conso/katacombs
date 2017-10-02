@@ -1,8 +1,9 @@
 ﻿using Codurance_Katacombs.Commands;
+using Codurance_Katacombs.Core;
 using FakeItEasy;
 using NUnit.Framework;
 
-namespace Codurance_Katacombs.Tests
+namespace Codurance_Katacombs.Tests.Commands
 {
     [TestFixture]
     public class MoveToShould

@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Codurance_Katacombs.Builders;
 using Codurance_Katacombs.Commands;
+using Codurance_Katacombs.Core;
+using Codurance_Katacombs.Core.Controller;
+using Codurance_Katacombs.Infrastructure;
 using FakeItEasy;
 using NUnit.Framework;
 
@@ -19,11 +23,10 @@ namespace Codurance_Katacombs.Acceptance
         {
             _readMessages = new List<string>();
             _fakeConsole = A.Fake<IWrapConsole>();
-            
-            _katacombsEngine = new KatacombsEngine(new KatacombsWorld(), new CommandFactory());
+            _katacombsEngine = new KatacombsEngine(SetupWorld(), new CommandFactory());
             _katacombsController = new KatacombsController(_katacombsEngine, _fakeConsole);
 
-            _katacombsEngine.ShowMessage += (messageText) => _readMessages.AddRange(messageText);
+            _katacombsEngine.DisplayMessage += (messageText) => _readMessages.AddRange(messageText);
         }
 
         [Test]
@@ -54,6 +57,22 @@ namespace Codurance_Katacombs.Acceptance
             Assert.That(_readMessages.Count, Is.EqualTo(14));
             Assert.That(_readMessages.ElementAt(0), Is.EqualTo(_readMessages.ElementAt(12)));
             Assert.That(_readMessages.ElementAt(1), Is.EqualTo(_readMessages.ElementAt(13)));
+            Assert.That(_readMessages.ElementAt(2), Is.EqualTo(_readMessages.ElementAt(10)));
+            Assert.That(_readMessages.ElementAt(3), Is.EqualTo(_readMessages.ElementAt(11)));
+            Assert.That(_readMessages.ElementAt(4), Is.EqualTo(_readMessages.ElementAt(8)));
+            Assert.That(_readMessages.ElementAt(5), Is.EqualTo(_readMessages.ElementAt(9)));
+        }
+
+        private IKatacombsWorld SetupWorld()
+        {
+            IList<Location> locations = new List<Location>
+            {
+                new LocationBuilder("title 1", "description 1").WithNorth("title 2").Build(),
+                new LocationBuilder("title 2", "description 2").WithSouth("title 1").WithWest("title 3").Build(),
+                new LocationBuilder("title 3", "description 3").WithEast("title 2").WithUp("title 4").Build(),
+                new LocationBuilder("title 4", "description 4").WithDown("title 3").Build()
+            };
+            return new KatacombsWorld(locations, locations.First().Title);
         }
     }
 }

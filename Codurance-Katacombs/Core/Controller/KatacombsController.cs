@@ -1,4 +1,6 @@
-﻿namespace Codurance_Katacombs
+﻿using Codurance_Katacombs.Infrastructure;
+
+namespace Codurance_Katacombs.Core.Controller
 {
     public class KatacombsController
     {
@@ -8,9 +10,14 @@
         public KatacombsController(IKatacombsEngine katacombsEngine, IWrapConsole console)
         {
             _katacombsEngine = katacombsEngine;
-            _katacombsEngine.ShowMessage += DisplayMessageToConsole;
+            _katacombsEngine.DisplayMessage += DisplayMessageToConsole;
             _console = console;
             _console.ReadLine += ExecuteCommand;
+        }
+
+        public void StartGame()
+        {
+            _katacombsEngine.Startup();
         }
 
         private void DisplayMessageToConsole(string[] textMessage)
@@ -21,11 +28,6 @@
         private void ExecuteCommand(string commandText)
         {
             _katacombsEngine.Execute(commandText);
-        }
-
-        public void StartGame()
-        {
-            _katacombsEngine.Startup();
         }
     }
 }

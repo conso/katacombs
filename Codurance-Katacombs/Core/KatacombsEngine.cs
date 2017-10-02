@@ -1,25 +1,25 @@
 ﻿using System;
 using Codurance_Katacombs.Commands;
 
-namespace Codurance_Katacombs
+namespace Codurance_Katacombs.Core
 {
     public class KatacombsEngine : IKatacombsEngine
     {
-        public event Action<string[]> ShowMessage;
+        public event Action<string[]> DisplayMessage;
 
         private readonly IKatacombsWorld _world;
         private readonly ICommandFactory _commandFactory;
 
         public KatacombsEngine(IKatacombsWorld world, ICommandFactory commandFactory)
         {
-            _commandFactory = commandFactory;
             _world = world;
-            _world.DisplayMessage += DisplayMessage;
+            _world.DisplayMessage += DisplayMessageEvent;
+            _commandFactory = commandFactory;
         }
 
         public void Startup()
         {
-            DisplayMessage(_world.CurrentLocation().Display());
+            DisplayMessageEvent(_world.CurrentLocation().Display());
         }
 
         public void Execute(string commandText)
@@ -28,11 +28,9 @@ namespace Codurance_Katacombs
             command.Execute();
         }
 
-        private void DisplayMessage(string[] messageText)
+        private void DisplayMessageEvent(string[] messageText)
         {
-            ShowMessage?.Invoke(messageText);
+            DisplayMessage?.Invoke(messageText);
         }
-
-        
     }
 }
