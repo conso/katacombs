@@ -104,6 +104,10 @@ THE RED DOOR HAS BEEN UNLOCKED!
 > OPEN DOOR
 YOU ARE INSIDE THE RED CHAMBER 
 ```
+
+#### Collecting gold
+The treasures we can find in the cave are in form of gold coins. They get collected automatically when a user move to a location with gold for the first time or opens an item containing gold for the first time. The total amount of gold retrieved can be seen in the INVENTORY.
+
 #### Game utilities
 
  * #### *Help*
