@@ -59,6 +59,7 @@
     <Compile Include="Core\Controller\KatacombsController.cs" />
     <Compile Include="Core\Item.cs" />
     <Compile Include="Core\LocationCommands.cs" />
+    <Compile Include="Core\Locations.cs" />
     <Compile Include="Infrastructure\IWrapConsole.cs" />
     <Compile Include="Core\KatacombsEngine.cs" />
     <Compile Include="Core\KatacombsWorld.cs" />
