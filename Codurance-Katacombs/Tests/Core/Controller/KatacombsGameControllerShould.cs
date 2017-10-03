@@ -23,7 +23,7 @@ namespace Codurance_Katacombs.Tests.Core.Controller
         }
 
         [Test]
-        public void Proxy_user_commands_to_the_game_engine()
+        public void Process_user_input()
         {
             string commandText = "GO N";
             _console.ReadLine += Raise.FreeForm.With(commandText);
@@ -32,7 +32,7 @@ namespace Codurance_Katacombs.Tests.Core.Controller
         }
 
         [Test]
-        public void Display_text_lines_to_the_console_when_engine_raises_show_message_event()
+        public void Display_output()
         {
             var messageText = new []{ "CIAO MAMMA!", "BONAAAA"};
             _engine.DisplayMessage += Raise.FreeForm.With(new []{messageText});

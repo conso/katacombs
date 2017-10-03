@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Codurance_Katacombs.Commands;
 
 namespace Codurance_Katacombs.Core
@@ -7,19 +6,13 @@ namespace Codurance_Katacombs.Core
     {
         public string Title { get; }
         private readonly string _description;
-        private readonly IDictionary<string, ILocationCommand> _availableCommands;
+        private readonly ILocationCommands _locationCommands;
 
-        public Location(string title, string description)
+        public Location(string title, string description, ILocationCommands locationCommands)
         {
             Title = title;
             _description = description;
-            _availableCommands = new Dictionary<string, ILocationCommand>();
-            AddSystemCommands();
-        }
-
-        private void AddSystemCommands()
-        {
-            _availableCommands.Add("BAG", new Inventory());
+            _locationCommands = locationCommands;
         }
 
         public string[] Display()
@@ -29,12 +22,13 @@ namespace Codurance_Katacombs.Core
         
         public void AddMoveToCommand(string commandText, string destinationTitle)
         {
-            _availableCommands.Add(commandText, new MoveTo(destinationTitle));
+            _locationCommands.AddMoveToCommand(commandText, destinationTitle);
         }
 
         public ILocationCommand GetCommand(string commandText)
         {
-            return !_availableCommands.ContainsKey(commandText) ? null : _availableCommands[commandText];
+            var locationCommand = _locationCommands.GetCommand(commandText);
+            return locationCommand;
         }
     }
 }

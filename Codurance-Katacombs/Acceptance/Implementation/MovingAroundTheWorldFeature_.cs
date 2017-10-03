@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Codurance_Katacombs.Builders;
-using Codurance_Katacombs.Commands;
 using Codurance_Katacombs.Core;
 using Codurance_Katacombs.Core.Controller;
 using Codurance_Katacombs.Infrastructure;
@@ -23,13 +22,11 @@ namespace Codurance_Katacombs.Acceptance
         {
             _readMessages = new List<string>();
             _fakeConsole = A.Fake<IWrapConsole>();
-            _katacombsEngine = new KatacombsEngine(SetupWorld(), new CommandFactory());
+            _katacombsEngine = new KatacombsEngine(SetupWorld());
             _katacombsController = new KatacombsController(_katacombsEngine, _fakeConsole);
 
             _katacombsEngine.DisplayMessage += (messageText) => _readMessages.AddRange(messageText);
         }
-
-        
 
         private void Given_I_startup_the_game_with_3_locations()
         {

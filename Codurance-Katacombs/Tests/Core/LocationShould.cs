@@ -25,8 +25,7 @@ namespace Codurance_Katacombs.Tests.Core
         [Test]
         public void Display_main_message()
         {
-            
-            var location = new Location(_locationTitle, _locationDescription);
+            var location = new Location(_locationTitle, _locationDescription, new LocationCommands());
 
             var mainMessage = location.Display();
 
@@ -36,8 +35,7 @@ namespace Codurance_Katacombs.Tests.Core
         [Test]
         public void Contain_system_commands()
         {
-            
-            var location = new Location(_locationTitle, _locationDescription);
+            var location = new Location(_locationTitle, _locationDescription, new LocationCommands());
 
             var inventoryCommand = location.GetCommand("BAG");
 

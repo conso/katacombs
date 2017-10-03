@@ -59,7 +59,7 @@ namespace Codurance_Katacombs.Builders
 
         public Location Build()
         {
-            var location = new Location(_title, _description);
+            var location = new Location(_title, _description, new LocationCommands());
             if (!string.IsNullOrWhiteSpace(_northernLocationTitle))
                 location.AddMoveToCommand("GO N", _northernLocationTitle);
             if (!string.IsNullOrWhiteSpace(_southernLocationTitle))

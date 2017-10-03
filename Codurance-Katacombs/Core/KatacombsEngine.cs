@@ -1,5 +1,4 @@
 ﻿using System;
-using Codurance_Katacombs.Commands;
 
 namespace Codurance_Katacombs.Core
 {
@@ -8,23 +7,22 @@ namespace Codurance_Katacombs.Core
         public event Action<string[]> DisplayMessage;
 
         private readonly IKatacombsWorld _world;
-        private readonly ICommandFactory _commandFactory;
 
-        public KatacombsEngine(IKatacombsWorld world, ICommandFactory commandFactory)
+        public KatacombsEngine(IKatacombsWorld world)
         {
             _world = world;
             _world.DisplayMessage += DisplayMessageEvent;
-            _commandFactory = commandFactory;
         }
 
         public void Startup()
         {
-            DisplayMessageEvent(_world.CurrentLocation.Display());
+            DisplayMessageEvent(_world.DisplayCurrentLocation());
         }
 
         public void Execute(string commandText)
         {
-            ILocationCommand command = _commandFactory.GetCommand(commandText, _world);
+            var command = _world.CommandForCurrentLocation(commandText);
+            command.SetContext(_world);
             command.Execute();
         }
 

@@ -12,20 +12,20 @@ namespace Codurance_Katacombs.Tests.Core
         private string description = "description";
         private KatacombsEngine _katacombsEngine;
         private IKatacombsWorld _katacombsWorld;
-        private ICommandFactory _commandFactory;
+        private ILocationCommands _locationCommands;
         private string[] _lastMessage;
+        private string[] _currentLocationMessage;
 
         [SetUp]
         public void TestSetup()
         {
             _lastMessage = null;
-            _commandFactory = A.Fake<ICommandFactory>();
+            _currentLocationMessage = new[] { title, description };
+            _locationCommands = A.Fake<ILocationCommands>();
             _katacombsWorld = A.Fake<IKatacombsWorld>();
-            var initialLocation = new Location(title, description);
-            A.CallTo(() => _katacombsWorld.CurrentLocation).Returns(initialLocation);
-            _katacombsEngine = new KatacombsEngine(_katacombsWorld, _commandFactory);
+            A.CallTo(() => _katacombsWorld.DisplayCurrentLocation()).Returns(_currentLocationMessage);
+            _katacombsEngine = new KatacombsEngine(_katacombsWorld);
             _katacombsEngine.DisplayMessage += (message) => _lastMessage = message;
-
             _katacombsEngine.Startup();
         }
 
@@ -33,16 +33,18 @@ namespace Codurance_Katacombs.Tests.Core
         [Test]
         public void Show_main_description_for_initial_location_when_started()
         {
-            Assert.That(_lastMessage, Is.EquivalentTo(new []{title, description}));
+            Assert.That(_lastMessage, Is.EquivalentTo(_currentLocationMessage));
         }
 
         [Test]
         public void Execute_commands()
         {
             var fakeCommand = A.Fake<ILocationCommand>();
-            A.CallTo(() => _commandFactory.GetCommand(A<string>._, A<IKatacombsWorld>._)).Returns(fakeCommand);
+            var commandText = "GO N";
 
-            _katacombsEngine.Execute("GO N");
+            A.CallTo(() => _katacombsWorld.CommandForCurrentLocation(commandText)).Returns(fakeCommand);
+
+            _katacombsEngine.Execute(commandText);
 
             A.CallTo(() => fakeCommand.Execute()).MustHaveHappened(Repeated.Exactly.Once);
         }

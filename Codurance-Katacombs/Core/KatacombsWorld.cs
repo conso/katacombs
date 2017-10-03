@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Codurance_Katacombs.Commands;
 
 namespace Codurance_Katacombs.Core
 {
     public class KatacombsWorld : IKatacombsWorld
     {
         public event Action<string[]> DisplayMessage;
-        public Location CurrentLocation { get; private set; }
+        private Location CurrentLocation { get; set; }
 
         private readonly IDictionary<string, Location> _definedLocations;
         private readonly Bag _items;
 
-        public KatacombsWorld(IList<Location> definedLocations, string startupLocationTitle) 
+        public KatacombsWorld(ICollection<Location> definedLocations, string startupLocationTitle) 
             : this(definedLocations, startupLocationTitle, new Bag())
         { }
 
-        public KatacombsWorld(IList<Location> definedLocations, string startupLocationTitle, Bag userItems)
+        public KatacombsWorld(ICollection<Location> definedLocations, string startupLocationTitle, Bag userItems)
         {
             _definedLocations = definedLocations.ToDictionary(location => location.Title);
             CurrentLocation = _definedLocations[startupLocationTitle];
@@ -32,6 +33,16 @@ namespace Codurance_Katacombs.Core
         public void DisplayInventory()
         {
             ShowMessage(_items.ToText());
+        }
+
+        public ILocationCommand CommandForCurrentLocation(string commandText)
+        {
+            return CurrentLocation.GetCommand(commandText);
+        }
+
+        public string[] DisplayCurrentLocation()
+        {
+            return CurrentLocation.Display();
         }
 
         private void ShowMessage(string[] textMessage)

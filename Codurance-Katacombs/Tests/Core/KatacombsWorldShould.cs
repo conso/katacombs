@@ -18,8 +18,8 @@ namespace Codurance_Katacombs.Tests.Core
         [SetUp]
         public void TestSetup()
         {
-            _startLocation = new Location("first location", "starting location");
-            _nextLocation = new Location("next location", "another location");
+            _startLocation = new Location("first location", "starting location", new LocationCommands());
+            _nextLocation = new Location("next location", "another location", new LocationCommands());
             IList<Location> definedLocations = new List<Location> {_startLocation, _nextLocation};
             _katacombsWorld = new KatacombsWorld(definedLocations, _startLocation.Title);
             _katacombsWorld.DisplayMessage += (message) => _messageLines = message;
@@ -30,7 +30,7 @@ namespace Codurance_Katacombs.Tests.Core
         {
             _katacombsWorld.SetCurrentLocationTo(_nextLocation.Title);
 
-            Assert.That(_katacombsWorld.CurrentLocation.Display(), Is.EqualTo(_nextLocation.Display()));
+            Assert.That(_katacombsWorld.DisplayCurrentLocation(), Is.EqualTo(_nextLocation.Display()));
         }
 
         [Test]
