@@ -89,10 +89,10 @@ KEYS: PICKED.
 KEYS: DROPPED.
 ```
 
-* #### *Checking inventory*
-    **INVENTORY** will show a list of items in the bag. The bag can containg only 10 items.
+* #### *Checking BAG*
+    **BAG** will show a list of items in the bag. The bag can containg only 10 items.
 ```
-> INVENTORY
+> BAG
 THE BAG CONTAINS: SOME KEYS, A SWISS KNIFE, A CANDLE AND A COMPASS.
 ```
 
@@ -106,7 +106,7 @@ YOU ARE INSIDE THE RED CHAMBER
 ```
 
 #### Collecting gold
-The treasures we can find in the cave are in form of gold coins. They get collected automatically when a user move to a location with gold for the first time or opens an item containing gold for the first time. The total amount of gold retrieved can be seen in the INVENTORY.
+The treasures we can find in the cave are in form of gold coins. They get collected automatically when a user move to a location with gold for the first time or opens an item containing gold for the first time. The total amount of gold retrieved can be seen in the BAG.
 
 #### Game utilities
 
@@ -115,7 +115,7 @@ The treasures we can find in the cave are in form of gold coins. They get collec
     
 ```
 > ?
-GO [direction], LOOK [direction/item], OPEN [item], PICK [item], DROP [item], INVENTORY, USE [item]
+GO [direction], LOOK [direction/item], OPEN [item], PICK [item], DROP [item], BAG, USE [item]
 ``` 
 
  * #### *Quit*
