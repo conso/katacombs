@@ -7,30 +7,36 @@ namespace Codurance_Katacombs.Core
     public class KatacombsWorld : IKatacombsWorld
     {
         public event Action<string[]> DisplayMessage;
+        public Location CurrentLocation { get; private set; }
 
         private readonly IDictionary<string, Location> _definedLocations;
-        private Location _currentLocation;
-        
-        public KatacombsWorld(IList<Location> definedLocations, string startupLocationTitle)
+        private readonly Bag _items;
+
+        public KatacombsWorld(IList<Location> definedLocations, string startupLocationTitle) 
+            : this(definedLocations, startupLocationTitle, new Bag())
+        { }
+
+        public KatacombsWorld(IList<Location> definedLocations, string startupLocationTitle, Bag userItems)
         {
             _definedLocations = definedLocations.ToDictionary(location => location.Title);
-            _currentLocation = _definedLocations[startupLocationTitle];
+            CurrentLocation = _definedLocations[startupLocationTitle];
+            _items = userItems;
         }
-
+        
         public void SetCurrentLocationTo(string locationTitle)
         {
-            _currentLocation = _definedLocations[locationTitle];
-            ShowCurrentLocationMessage();
+            CurrentLocation = _definedLocations[locationTitle];
+            ShowMessage(CurrentLocation.Display());
         }
 
-        public Location CurrentLocation()
+        public void DisplayInventory()
         {
-            return _currentLocation;
+            ShowMessage(_items.ToText());
         }
 
-        private void ShowCurrentLocationMessage()
+        private void ShowMessage(string[] textMessage)
         {
-            DisplayMessage?.Invoke(_currentLocation.Display());
+            DisplayMessage?.Invoke(textMessage);
         }
     }
 }

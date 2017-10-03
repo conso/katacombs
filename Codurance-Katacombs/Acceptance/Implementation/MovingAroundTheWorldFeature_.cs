@@ -11,7 +11,7 @@ using NUnit.Framework;
 namespace Codurance_Katacombs.Acceptance
 {
     [TestFixture]
-    public class MovingAroundTheWorldFeature
+    public partial class MovingAroundTheWorldFeature
     {
         private IWrapConsole _fakeConsole;
         private IKatacombsEngine _katacombsEngine;
@@ -29,13 +29,7 @@ namespace Codurance_Katacombs.Acceptance
             _katacombsEngine.DisplayMessage += (messageText) => _readMessages.AddRange(messageText);
         }
 
-        [Test]
-        public void Changing_location_always_trigger_next_location_message()
-        {
-            Given_I_startup_the_game_with_3_locations();
-            When_I_move_to_all_locations_and_back();
-            Then_all_location_messages_should_have_shown_in_correct_order();
-        }
+        
 
         private void Given_I_startup_the_game_with_3_locations()
         {

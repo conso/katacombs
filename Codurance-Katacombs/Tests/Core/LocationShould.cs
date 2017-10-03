@@ -34,6 +34,17 @@ namespace Codurance_Katacombs.Tests.Core
         }
 
         [Test]
+        public void Contain_system_commands()
+        {
+            
+            var location = new Location(_locationTitle, _locationDescription);
+
+            var inventoryCommand = location.GetCommand("BAG");
+
+            Assert.That(inventoryCommand, Is.TypeOf<Inventory>());
+        }
+
+        [Test]
         public void Get_commands_when_present()
         {
             _location.AddMoveToCommand("GO N", _northernLocationTitle);

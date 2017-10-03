@@ -22,7 +22,7 @@ namespace Codurance_Katacombs.Tests.Core
             _commandFactory = A.Fake<ICommandFactory>();
             _katacombsWorld = A.Fake<IKatacombsWorld>();
             var initialLocation = new Location(title, description);
-            A.CallTo(() => _katacombsWorld.CurrentLocation()).Returns(initialLocation);
+            A.CallTo(() => _katacombsWorld.CurrentLocation).Returns(initialLocation);
             _katacombsEngine = new KatacombsEngine(_katacombsWorld, _commandFactory);
             _katacombsEngine.DisplayMessage += (message) => _lastMessage = message;
 

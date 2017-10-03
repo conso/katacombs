@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Codurance_Katacombs.Core;
 using NUnit.Framework;
 
@@ -7,9 +8,12 @@ namespace Codurance_Katacombs.Tests.Core
     [TestFixture]
     public class KatacombsWorldShould
     {
+        private const string NO_ITEMS_MESSAGE = "YOU HAVE NO ITEMS IN YOUR BAG.";
+        private const string NO_GOLD_MESSAGE = "YOU HAVE 0 GOLD COINS.";
         private IKatacombsWorld _katacombsWorld;
         private Location _startLocation;
         private Location _nextLocation;
+        private string[] _messageLines;
 
         [SetUp]
         public void TestSetup()
@@ -18,6 +22,7 @@ namespace Codurance_Katacombs.Tests.Core
             _nextLocation = new Location("next location", "another location");
             IList<Location> definedLocations = new List<Location> {_startLocation, _nextLocation};
             _katacombsWorld = new KatacombsWorld(definedLocations, _startLocation.Title);
+            _katacombsWorld.DisplayMessage += (message) => _messageLines = message;
         }
 
         [Test]
@@ -25,18 +30,24 @@ namespace Codurance_Katacombs.Tests.Core
         {
             _katacombsWorld.SetCurrentLocationTo(_nextLocation.Title);
 
-            Assert.That(_katacombsWorld.CurrentLocation().Display(), Is.EqualTo(_nextLocation.Display()));
+            Assert.That(_katacombsWorld.CurrentLocation.Display(), Is.EqualTo(_nextLocation.Display()));
         }
 
         [Test]
-        public void Display_message_when_set_new_current_location_to_another_location()
+        public void Display_location_message_when_set_current_location_to_next_location()
         {
-            string[] messageLines = null;
-            _katacombsWorld.DisplayMessage += (message) => messageLines = message;
-
             _katacombsWorld.SetCurrentLocationTo(_nextLocation.Title);
 
-            Assert.That(messageLines, Is.EquivalentTo(_nextLocation.Display()));
+            Assert.That(_messageLines, Is.EquivalentTo(_nextLocation.Display()));
+        }
+
+        [Test]
+        public void Display_message_when_neither_items_nor_gold_are_in_the_bag()
+        {
+            _katacombsWorld.DisplayInventory();
+
+            Assert.That(_messageLines.ElementAt(_messageLines.Length-2), Is.EquivalentTo(NO_GOLD_MESSAGE));
+            Assert.That(_messageLines.Last(), Is.EquivalentTo(NO_ITEMS_MESSAGE));
         }
     }
 }

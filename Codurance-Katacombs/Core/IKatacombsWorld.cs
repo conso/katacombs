@@ -5,9 +5,8 @@ namespace Codurance_Katacombs.Core
     public interface IKatacombsWorld
     {
         event Action<string[]> DisplayMessage;
-
+        Location CurrentLocation { get; }
         void SetCurrentLocationTo(string locationTitle);
-
-        Location CurrentLocation();
+        void DisplayInventory();
     }
 }

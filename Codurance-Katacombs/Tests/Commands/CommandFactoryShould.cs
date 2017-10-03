@@ -14,7 +14,7 @@ namespace Codurance_Katacombs.Tests.Commands
             var fakeWorld = A.Fake<IKatacombsWorld>();
             var location = new Location("location 1", "description");
             location.AddMoveToCommand("GO N", "location 2");
-            A.CallTo(() => fakeWorld.CurrentLocation()).Returns(location);
+            A.CallTo(() => fakeWorld.CurrentLocation).Returns(location);
 
             CommandFactory commandFactory = new CommandFactory();
             Assert.That(commandFactory.GetCommand("GO N", fakeWorld), Is.EqualTo(location.GetCommand("GO N")));

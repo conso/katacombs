@@ -14,6 +14,12 @@ namespace Codurance_Katacombs.Core
             Title = title;
             _description = description;
             _availableCommands = new Dictionary<string, ILocationCommand>();
+            AddSystemCommands();
+        }
+
+        private void AddSystemCommands()
+        {
+            _availableCommands.Add("BAG", new Inventory());
         }
 
         public string[] Display()

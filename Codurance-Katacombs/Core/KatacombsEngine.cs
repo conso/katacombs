@@ -19,7 +19,7 @@ namespace Codurance_Katacombs.Core
 
         public void Startup()
         {
-            DisplayMessageEvent(_world.CurrentLocation().Display());
+            DisplayMessageEvent(_world.CurrentLocation.Display());
         }
 
         public void Execute(string commandText)

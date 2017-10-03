@@ -46,13 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Acceptance\MovingAroundTheWorldFeature.cs" />
+    <Compile Include="Acceptance\Features\MovingAroundTheWorldFeature.cs" />
+    <Compile Include="Acceptance\Implementation\MovingAroundTheWorldFeature_.cs" />
+    <Compile Include="Acceptance\Features\PickingAndDroppingItemsFeature.cs" />
+    <Compile Include="Acceptance\Implementation\PickingAndDroppingItemsFeature_.cs" />
     <Compile Include="Commands\CommandFactory.cs" />
     <Compile Include="Commands\ICommandFactory.cs" />
     <Compile Include="Commands\ILocationCommand.cs" />
+    <Compile Include="Commands\Inventory.cs" />
+    <Compile Include="Core\Bag.cs" />
     <Compile Include="Core\IKatacombsEngine.cs" />
     <Compile Include="Core\IKatacombsWorld.cs" />
     <Compile Include="Core\Controller\KatacombsController.cs" />
+    <Compile Include="Core\Item.cs" />
     <Compile Include="Infrastructure\IWrapConsole.cs" />
     <Compile Include="Core\KatacombsEngine.cs" />
     <Compile Include="Core\KatacombsWorld.cs" />
@@ -60,6 +66,7 @@
     <Compile Include="Commands\MoveTo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Commands\CommandFactoryShould.cs" />
+    <Compile Include="Tests\Commands\InventoryShould.cs" />
     <Compile Include="Tests\Core\Controller\KatacombsGameControllerShould.cs" />
     <Compile Include="Tests\Core\KatacombsEngineShould.cs" />
     <Compile Include="Builders\LocationBuilder.cs" />
