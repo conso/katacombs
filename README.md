@@ -77,14 +77,14 @@ I CAN SEE A BRICK BUILDING WITH A SIGN SAYING "TRUMAN BREWERY" AND A WOODEN WHIT
 YOU ARE INSIDE THE MAIN ROOM OF THE TRUMAN BREWERY. THERE IS A STRONG SMELL OF HOP AND A DOZEN EMPTY CASKS 
 ``` 
 
-* #### *Picking and dropping items*
-    **PICK** will collect an item from the environment and will put it in the bag. **DROP** allows to leave an item in the environment. Every item can be picked and dropped anywhere and the game has to list the items in the environment just after the main description.
+* #### *Taking and dropping items*
+    **TAKE** will collect an item from the environment and will put it in the bag. **DROP** allows to leave an item in the environment. Every item can be taken and dropped anywhere and the game has to list the items in the environment just after the main description.
 ```
 INSIDE THE BUILDING.
 YOU ARE INSIDE THE BUILDING, A WELL HOUSE FOR LARGE SPRINGS.
 THERE ARE SOME KEYS ON THE FLOOR.
-> PICK KEYS
-KEYS: PICKED.
+> TAKE KEYS
+KEYS: TAKEN.
 > DROP KEYS
 KEYS: DROPPED.
 ```
@@ -115,18 +115,8 @@ The treasures we can find in the cave are in form of gold coins. They get collec
     
 ```
 > ?
-GO [direction], LOOK [direction/item], OPEN [item], PICK [item], DROP [item], BAG, USE [item]
+GO [direction], LOOK [direction/item], OPEN [item], TAKE [item], DROP [item], BAG, USE [item]
 ``` 
 
  * #### *Quit*
     **Quit** terminates the game 
-    
-
-
-
-
-
-
-
-
-
