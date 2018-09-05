@@ -1,4 +1,4 @@
-# Codurance Katacombs
+# Agile Tech Praxis Katacombs
 
 Inspired by [Colossal Cave Adventure](https://en.wikipedia.org/wiki/Colossal_Cave_Adventure) this is a kata idea for building a text adventure game which can be expanded *incrementally* and *indefinetly* limited only by imagination.
 
