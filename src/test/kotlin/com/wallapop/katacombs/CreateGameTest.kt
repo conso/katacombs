@@ -1,5 +1,9 @@
 package com.wallapop.katacombs
 
+import com.wallapop.katacombs.context.game.domain.Game
+import com.wallapop.katacombs.context.game.domain.GameRepository
+import com.wallapop.katacombs.context.game.domain.create.GameCreator
+import com.wallapop.katacombs.context.user.domain.UserId
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Test
@@ -24,20 +28,3 @@ class CreateGameTest {
 
 }
 
-class GameCreator(private val repository: GameRepository) {
-
-    operator fun invoke(userId: UserId) {
-        repository.save(Game(userId))
-    }
-
-}
-
-data class Game(val userId: UserId)
-
-data class UserId(val id: UUID)
-
-interface GameRepository {
-
-    fun save(game: Game)
-
-}
