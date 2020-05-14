@@ -22,6 +22,9 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
+	testImplementation("io.rest-assured:rest-assured:3.3.0")
+	testImplementation("io.rest-assured:xml-path:4.2.0")
+	testImplementation("io.mockk:mockk:1.8.13")
 }
 
 tasks.withType<Test> {

@@ -95,7 +95,7 @@ KEYS: DROPPED.
 > BAG
 THE BAG CONTAINS: SOME KEYS, A SWISS KNIFE, A CANDLE AND A COMPASS.
 ```
-
+xºº
 * #### *Using items*
     **USE** will perform an action with the item, if the environment is setup for it and if we have the item in the bag. The action can result in an extra sentence in the main description, unlocking a passage toward a hidden location, releasing a new item in the location.
 ```
