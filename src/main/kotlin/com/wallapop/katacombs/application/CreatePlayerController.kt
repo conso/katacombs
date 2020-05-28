@@ -16,9 +16,9 @@ class CreatePlayerController(val creator: PlayerCreator) {
     @ResponseStatus(CREATED)
     fun createPlayer(@RequestBody createRequest: Player) {
 
-        creator(UserId.fromString(createRequest.sid!!))
+        creator.invoke(UserId.fromString(createRequest.sid))
 
     }
 
 }
-data class Player(var sid: String?, var name:String?)
+data class Player(var sid: String, var name:String)

@@ -18,7 +18,7 @@ class CreatePlayerTest {
         val expectedGame = Game(userId)
 
         val gameCreator = PlayerCreator(repository)
-        gameCreator(userId)
+        gameCreator.invoke(userId)
 
         verify {
             repository.save(expectedGame)
