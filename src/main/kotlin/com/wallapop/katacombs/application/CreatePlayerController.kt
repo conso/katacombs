@@ -1,6 +1,6 @@
 package com.wallapop.katacombs.application
 
-import com.wallapop.katacombs.context.game.domain.create.GameCreator
+import com.wallapop.katacombs.context.game.domain.create.PlayerCreator
 import com.wallapop.katacombs.context.user.domain.UserId
 import org.springframework.http.HttpStatus.CREATED
 import org.springframework.web.bind.annotation.PostMapping
@@ -10,16 +10,15 @@ import org.springframework.web.bind.annotation.RestController
 
 
 @RestController
-class CreateGameController(val gameCreator: GameCreator) {
+class CreatePlayerController(val creator: PlayerCreator) {
 
-    @PostMapping("/start")
+    @PostMapping("/katacomb/player")
     @ResponseStatus(CREATED)
-    fun createGame(@RequestBody createRequest: CreateRequest) {
+    fun createPlayer(@RequestBody createRequest: Player) {
 
-        gameCreator(UserId.fromString(createRequest.userId))
+        creator(UserId.fromString(createRequest.sid!!))
 
     }
 
 }
-
-class CreateRequest(var userId: String)
+data class Player(var sid: String?, var name:String?)

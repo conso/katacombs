@@ -6,7 +6,7 @@ import com.wallapop.katacombs.context.user.domain.UserId
 import org.springframework.stereotype.Service
 
 @Service
-class GameCreator(private val repository: GameRepository) {
+class PlayerCreator(private val repository: GameRepository) {
 
     operator fun invoke(userId: UserId) {
         repository.save(Game(userId))

@@ -8,6 +8,5 @@ import org.springframework.stereotype.Repository
 class InMemoryGameRepository : GameRepository {
     override fun save(game: Game) {
 
-
     }
 }
