@@ -2,6 +2,7 @@ package com.wallapop.katacombs
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wallapop.katacombs.application.Player
+import com.wallapop.katacombs.application.PlayerRequest
 import io.restassured.RestAssured
 import io.restassured.http.ContentType
 import org.apache.http.HttpStatus
@@ -28,18 +29,18 @@ class End2EndTest {
         shouldDescribePlayerRoom(createRequest)
     }
 
-    private fun shouldDescribePlayerRoom(createRequest: Player) {
-        RestAssured.given().get("/katacomb/player/" + createRequest.sid)
+    private fun shouldDescribePlayerRoom(player: Player) {
+        RestAssured.given().get("/katacomb/player/" + player.sid)
                 .then()
                 .body(equalTo("""{"description" : "room direction description",
                         "items": []}"""))
                 .statusCode(HttpStatus.SC_OK)
     }
 
-    private fun shouldCreatePlayer(createRequest: Player) {
+    private fun shouldCreatePlayer(player: Player) {
         RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(ObjectMapper().writeValueAsString(createRequest))
+                .body(ObjectMapper().writeValueAsString(PlayerRequest(player)))
                 .post("/katacomb/player")
                 .then()
                 .statusCode(HttpStatus.SC_CREATED)
